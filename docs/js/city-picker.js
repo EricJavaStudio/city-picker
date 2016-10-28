@@ -26,7 +26,6 @@
     if (typeof ChineseDistricts === 'undefined') {
         throw new Error('The file "city-picker.data.js" must be included first!');
     }
-
     var NAMESPACE = 'citypicker';
     var EVENT_CHANGE = 'change.' + NAMESPACE;
     var PROVINCE = 'province';
@@ -407,44 +406,48 @@
             value = (item ? item.address : null) || options[type];
 
             code = (
-                type === PROVINCE ? 86 :
+                type === PROVINCE ? 1 :
                     type === CITY ? this.$province && this.$province.find('.active').data('code') :
                         type === DISTRICT ? this.$city && this.$city.find('.active').data('code') : code
             );
 
             districts = $.isNumeric(code) ? ChineseDistricts[code] : null;
 
-            if ($.isPlainObject(districts)) {
+            if ($.isPlainObject(districts)||($.isArray(districts)&&(type==CITY||type==DISTRICT))) {
                 $.each(districts, function (code, address) {
                     var provs;
                     if (type === PROVINCE) {
                         provs = [];
                         for (var i = 0; i < address.length; i++) {
-                            if (address[i].address === value) {
+                            if (address[i][1] === value) {
                                 matched = {
-                                    code: address[i].code,
-                                    address: address[i].address
+                                    code: address[i][0],
+                                    address: address[i][1],
+                                    type:address[i][3]
                                 };
                             }
                             provs.push({
-                                code: address[i].code,
-                                address: address[i].address,
-                                selected: address[i].address === value
+                                code: address[i][0],
+                                address: address[i][1],
+                                type:address[i][3],
+                                selected: address[i][1] === value
                             });
                         }
                         data[code] = provs;
                     } else {
-                        if (address === value) {
-                            matched = {
-                                code: code,
-                                address: address
-                            };
+                        var _tmp={
+                            code: address[0],
+                            address: address[1],
+                            type:address[3]
+                        };
+                        if(address[4]&&address[5]){
+                            _tmp.address=_tmp.address+'('+address[4]+''+address[5]+')';
                         }
-                        data.push({
-                            code: code,
-                            address: address,
-                            selected: address === value
-                        });
+                        if (_tmp.address === value) {
+                            matched = _tmp;
+                            _tmp.selected=true;
+                        }
+                        data.push(_tmp);
                     }
                 });
             }
@@ -482,10 +485,14 @@
         getList: function (data, type) {
             var list = [],
                 $this = this,
-                simple = this.options.simple;
+                simple = this.options.simple,is_hr=true;
             list.push('<dl class="clearfix"><dd>');
 
             $.each(data, function (i, n) {
+                if(is_hr&&n.type){
+                    list.push('<hr style="margin:0;">');
+                    is_hr=false;
+                }
                 list.push(
                     '<a' +
                     ' title="' + (n.address || '') + '"' +
@@ -504,12 +511,15 @@
         simplize: function (address, type) {
             address = address || '';
             if (type === PROVINCE) {
-                return address.replace(/[省,市,自治区,壮族,回族,维吾尔]/g, '');
+                // return address.replace(/[省,市,自治区,壮族,回族,维吾尔]/g, '');
+                return address;
             } else if (type === CITY) {
-                return address.replace(/[市,地区,回族,蒙古,苗族,白族,傣族,景颇族,藏族,彝族,壮族,傈僳族,布依族,侗族]/g, '')
-                    .replace('哈萨克', '').replace('自治州', '').replace(/自治县/, '');
+                // return address.replace(/[市,地区,回族,蒙古,苗族,白族,傣族,景颇族,藏族,彝族,壮族,傈僳族,布依族,侗族]/g, '')
+                //     .replace('哈萨克', '').replace('自治州', '').replace(/自治县/, '');
+                return address;
             } else if (type === DISTRICT) {
-                return address.length > 2 ? address.replace(/[市,区,县,旗]/g, '') : address;
+                // return address.length > 2 ? address.replace(/[市,区,县,旗]/g, '') : address;
+                return address;
             }
         },
 
