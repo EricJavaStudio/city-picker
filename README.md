@@ -4,6 +4,8 @@
 
 - [Demo原版原作者](http://tshi0912.github.io/city-picker)
 - [修改版Demo，基于淘宝省市区](http://foxiswho.github.io/city-picker)
+- [淘宝省市区SQL或EXCEL文件](http://blog.csdn.net/fenglailea/article/details/52054294)
+
 ##Release History
 
 ###v1.1.0
