@@ -2,9 +2,11 @@
 
 > A simple jQuery plugin for picking provinces, cities and districts of China.
 
-- [Demo原版原作者](http://tshi0912.github.io/city-picker)
+
 - [修改版Demo，基于淘宝省市区](http://foxiswho.github.io/city-picker)
 - [淘宝省市区SQL或EXCEL文件](http://blog.csdn.net/fenglailea/article/details/52054294)
+
+- [Demo原版原作者](http://tshi0912.github.io/city-picker)
 
 ##Release History
 
