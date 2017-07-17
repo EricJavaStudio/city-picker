@@ -10,9 +10,9 @@ $(function () {
     var $citypicker2 = $('#city-picker2');
 
     $citypicker2.citypicker({
-        province: '江苏省',
-        city: '常州市',
-        district: '溧阳市'
+        province: '江苏',
+        city: '常州',
+        district: '溧阳'
     });
 
     var $citypicker3 = $('#city-picker3');
