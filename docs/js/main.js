@@ -39,4 +39,14 @@ $(function () {
         }
     });
 
+    $('#reset-su_zhou-gu_su').click(function () {
+        $citypicker2.citypicker('destroy');
+        //
+        $citypicker2.citypicker({
+            province: '江苏',
+            city: '苏州',
+            district: '姑苏'
+        });
+    });
+
 });
