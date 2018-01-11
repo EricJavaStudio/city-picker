@@ -3,6 +3,8 @@
 > A simple jQuery plugin for picking provinces, cities and districts of China.
 
 
+最新淘宝省市区数据 自动生成 `city-picker.data.js`  https://github.com/foxiswho/taobao-area-php 
+
 - [修改版Demo，基于淘宝省市区](http://foxiswho.github.io/city-picker)
 - [淘宝省市区SQL或EXCEL文件](http://blog.csdn.net/fenglailea/article/details/52054294)
 
